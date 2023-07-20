@@ -7,7 +7,7 @@
 
 Welcome to the **Interactive Starry Background**! This project lets you dive into a universe in your browser. We've created a mesmerizing, ever-changing star field, dynamically moving and interconnecting right on your screen! 🌠
 
-![demo](https://github.com/LeonKohli/interactive-particle-network/assets/98176333/05e9b108-9f96-44ab-9d76-18c7007c07aa)
+![demo](https://github.com/LeonKohli/interactive-particle-network/assets/98176333/ac7b59d7-8dfb-4290-88ec-632fd9348170)
 
 
 ## 🌟 Features
