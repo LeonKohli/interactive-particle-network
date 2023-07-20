@@ -1,9 +1,9 @@
-# ✨ Interactive Starry Background 🚀🌌
+# ✨ Interactive Particle Network 🚀🌌
 
-![GitHub last commit](https://img.shields.io/github/last-commit/leonkohli/interactive-particle-network)
-![GitHub stars](https://img.shields.io/github/stars/leonkohli/interactive-particle-network)
-![GitHub issues](https://img.shields.io/github/issues/leonkohli/interactive-particle-network)
-![License](https://img.shields.io/github/license/leonkohli/interactive-particle-network)
+![GitHub last commit](https://img.shields.io/github/last-commit/LeonKohli/interactive-particle-network)
+![GitHub stars](https://img.shields.io/github/stars/LeonKohli/interactive-particle-network)
+![GitHub issues](https://img.shields.io/github/issues/LeonKohli/interactive-particle-network)
+![License](https://img.shields.io/github/license/LeonKohli/interactive-particle-network)
 
 Welcome to the **Interactive Starry Background**! This project lets you dive into a universe in your browser. We've created a mesmerizing, ever-changing star field, dynamically moving and interconnecting right on your screen! 🌠
 
