@@ -1,17 +1,22 @@
-# ✨ Interactive Starry Background ✨
+# ✨ Interactive Starry Background 🚀🌌
 
-Welcome to the Interactive Starry Background project! This project utilizes vanilla JavaScript to create an interactive star field in the browser's background. The field consists of a constellation of stars, dynamically moving across the canvas and interconnecting, creating a mesmerizing, ever-changing pattern.
+![GitHub last commit](https://img.shields.io/github/last-commit/leonkohli/interactive-particle-network)
+![GitHub stars](https://img.shields.io/github/stars/leonkohli/interactive-particle-network)
+![GitHub issues](https://img.shields.io/github/issues/leonkohli/interactive-particle-network)
+![License](https://img.shields.io/github/license/leonkohli/interactive-particle-network)
+
+Welcome to the **Interactive Starry Background**! This project lets you dive into a universe in your browser. We've created a mesmerizing, ever-changing star field, dynamically moving and interconnecting right on your screen! 🌠
 
 ![demo](https://github.com/LeonKohli/interactive-particle-network/assets/98176333/05e9b108-9f96-44ab-9d76-18c7007c07aa)
 
 
+## 🌟 Features
 
-## 🎉 Features
+- **👐 Interactive**: Move your cursor and watch the stars react! Constellations form and follow your command.
+- **🎲 Dynamically Generated**: Experience a unique constellation pattern every time you refresh the page.
+- **📐 Responsive**: Perfectly fits any window size for a seamless experience.
+- **🔨 Pure JavaScript**: Absolutely no additional libraries or frameworks required.
 
-- **Interactive**: The stars interact with your mouse movements, creating constellations that follow your cursor around.
-- **Dynamically Generated**: Each star and constellation is dynamically generated, ensuring a unique experience every time you visit.
-- **Responsive**: Adjusts to fit any window size.
-- **Pure JavaScript**: No additional libraries or frameworks required.
 
 ## 🚀 Getting Started
 
