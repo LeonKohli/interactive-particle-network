@@ -2,7 +2,8 @@
 
 Welcome to the Interactive Starry Background project! This project utilizes vanilla JavaScript to create an interactive star field in the browser's background. The field consists of a constellation of stars, dynamically moving across the canvas and interconnecting, creating a mesmerizing, ever-changing pattern.
 
-![demo](https://github.com/LeonKohli/interactive-particle-network/assets/98176333/73b8c8cb-50a1-494d-b65a-88bcffbf2917)
+![demo](https://github.com/LeonKohli/interactive-particle-network/assets/98176333/05e9b108-9f96-44ab-9d76-18c7007c07aa)
+
 
 
 ## 🎉 Features
