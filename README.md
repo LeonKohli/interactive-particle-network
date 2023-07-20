@@ -17,7 +17,7 @@ Welcome to the Interactive Starry Background project! This project utilizes vani
 
 1. Clone the repository:
 2. git clone https://github.com/LeonKohli/interactive-particle-network.git
-3.Open the `index.html` file in your web browser.
+3. Open the `index.html` file in your web browser.
 
 ## 🛠️ Usage
 
