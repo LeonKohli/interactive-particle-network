@@ -88,7 +88,7 @@ By customizing these options, you can create a truly unique and stunning celesti
   <a href="./examples.md#cybernetic-circuit">Cybernetic Circuit</a>
 </p>
 
-Too many options? Jumpstart your journey with our predefined configurations. Click on the names to see them in action!
+Too many options? Jumpstart your journey with our predefined configurations.
 
 ## 📄 License
 
