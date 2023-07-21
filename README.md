@@ -13,15 +13,12 @@ Welcome to the **Interactive Starry Background**! This project lets you dive int
 
 ![demo](https://github.com/LeonKohli/interactive-particle-network/assets/98176333/ac7b59d7-8dfb-4290-88ec-632fd9348170)
 
-
-
 ## 🌟 Features
 
 - **👐 Interactive**: Move your cursor and watch the stars react! Constellations form and follow your command.
 - **🎲 Dynamically Generated**: Experience a unique constellation pattern every time you refresh the page.
 - **📐 Responsive**: Perfectly fits any window size for a seamless experience.
 - **🔨 Pure JavaScript**: Absolutely no additional libraries or frameworks required.
-
 
 ## 🚀 Getting Started
 
@@ -32,6 +29,25 @@ Welcome to the **Interactive Starry Background**! This project lets you dive int
 ## 🛠️ Usage
 
 Feel free to incorporate this interactive background into your own projects. It would be a great addition to a personal portfolio, an online store, a blog, and more. Please give credit if you do use it!
+
+
+## 🎨 Predefined Configurations
+
+Can't decide on a configuration? Try one of these predefined configurations to see how different options can change your experience:
+
+1. **[Starry Night](#starry-night)**
+2. **[Nebula Burst](#nebula-burst)**
+3. **[Cosmic Web](#cosmic-web)**
+4. **[Galactic Symphony](#galactic-symphony)**
+5. **[Celestial Dream](#celestial-dream)**
+6. **[Quantum Realm](#quantum-realm)**
+7. **[Eternal Twilight](#eternal-twilight)**
+8. **[Alien Encounter](#alien-encounter)**
+9. **[Cybernetic Circuit](#cybernetic-circuit)**
+10. **[Astral Serenity](#astral-serenity)**
+
+Click on the configuration names to see them in action!
+
 
 ## 📄 License
 
