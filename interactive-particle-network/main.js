@@ -1,10 +1,39 @@
 // Starry background with connecting constellations
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
+
+// Default options
+const defaultOptions = {
+    numberOfStars: 300,
+    maxDistance: 70,
+    starSize: { min: 1, max: 5 },
+    speedFactor: 2,
+    mouseRadius: 200,
+    starColor: '#fff',
+    connectionColor: 'rgba(255, 255, 255, ${opacity})',
+    canvasBackgroundColor: '#000',
+    lineThickness: 1,
+    starShapes: ['circle', 'star'],
+    randomStarSpeeds: true,
+    rotationSpeed: { min: 0.001, max: 0.003 },
+    connectionsWhenNoMouse: false,
+    percentStarsConnecting: 10, // percentage of stars that can connect when mouse is not on canvas
+    connectionLinesDashed: false, // option to make connection lines dashed
+    dashedLinesConfig: [5, 15], // configuration for dashed lines
+    canvasGradient: null, // gradient for canvas background
+};
+
+const userOptions = {
+}
+
+
+
+
+// Merge user options with default options
+const options = { ...defaultOptions, ...userOptions };
+
 const stars = [];
 const mouse = { x: null, y: null };
-const numberOfStars = 300;
-const maxDistance = 70;
 
 window.addEventListener('resize', resizeCanvas);
 window.addEventListener('mousemove', function (event) {
@@ -15,29 +44,76 @@ window.addEventListener('mousemove', function (event) {
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    // setup gradient if defined
+    if (options.canvasGradient) {
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        options.canvasGradient.forEach((color, index) => {
+            gradient.addColorStop(index / (options.canvasGradient.length - 1), color);
+        });
+        canvas.style.background = gradient;
+    } else {
+        canvas.style.background = options.canvasBackgroundColor;
+    }
 }
 
 function Star(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 5;
-    this.speedX = (Math.random() - 0.5) * 2;
-    this.speedY = (Math.random() - 0.5) * 2;
+    this.size = Math.random() * (options.starSize.max - options.starSize.min) + options.starSize.min;
+    this.shape = options.starShapes[Math.floor(Math.random() * options.starShapes.length)];
+    this.speedX = (Math.random() - 0.5) * (options.randomStarSpeeds ? options.speedFactor : 1);
+    this.speedY = (Math.random() - 0.5) * (options.randomStarSpeeds ? options.speedFactor : 1);
+    this.rotation = 0;
+    this.rotationSpeed = Math.random() * (options.rotationSpeed.max - options.rotationSpeed.min) + options.rotationSpeed.min;
+    this.connects = options.connectionsWhenNoMouse && Math.random() < options.percentStarsConnecting / 100;
 }
 
 Star.prototype.draw = function () {
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = options.starColor;
+    switch (this.shape) {
+        case 'circle':
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            break;
+        case 'star':
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.rotation);
+            ctx.beginPath();
+            // Five-point star shape
+            for (let i = 0; i < 5; i++) {
+                ctx.lineTo(0, -this.size / 2);
+                ctx.translate(0, -this.size / 2);
+                ctx.rotate((Math.PI * 2 / 10));
+                ctx.lineTo(0, -this.size / 2);
+                ctx.translate(0, -this.size / 2);
+                ctx.rotate(-(Math.PI * 6 / 10));
+            }
+            ctx.lineTo(0, -this.size / 2);
+            ctx.restore();
+            break;
+        // More shapes can be added here
+    }
     ctx.closePath();
-    ctx.fillStyle = '#fff';
     ctx.fill();
 }
 
 function animateStars() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Fill the entire canvas with the gradient
+    if (options.canvasGradient) {
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        options.canvasGradient.forEach((color, index) => {
+            gradient.addColorStop(index / (options.canvasGradient.length - 1), color);
+        });
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
     stars.forEach(star => {
         star.x += star.speedX;
         star.y += star.speedY;
+        if (star.shape === 'star') star.rotation += star.rotationSpeed;
         if (star.x > canvas.width || star.x < 0) {
             star.speedX = -star.speedX;
         }
@@ -53,11 +129,18 @@ function animateStars() {
             let mouseDx = star.x - mouse.x;
             let mouseDy = star.y - mouse.y;
             let mouseDistance = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy);
-            if (distance < maxDistance && mouseDistance < 200) {
+            if (distance < options.maxDistance && (mouseDistance < options.mouseRadius || (star.connects && otherStar.connects))) {
                 ctx.beginPath();
                 ctx.moveTo(star.x, star.y);
                 ctx.lineTo(otherStar.x, otherStar.y);
-                ctx.strokeStyle = `rgba(255, 255, 255, ${(maxDistance - distance) / maxDistance})`;
+                const opacity = (options.maxDistance - distance) / options.maxDistance;
+                ctx.lineWidth = options.lineThickness;
+                ctx.strokeStyle = options.connectionColor.replace('${opacity}', opacity);
+                if (options.connectionLinesDashed) {
+                    ctx.setLineDash(options.dashedLinesConfig);
+                } else {
+                    ctx.setLineDash([]);
+                }
                 ctx.stroke();
             }
         });
@@ -65,9 +148,10 @@ function animateStars() {
     requestAnimationFrame(animateStars);
 }
 
+
 function createStars() {
     resizeCanvas();
-    for (let i = 0; i < numberOfStars; i++) {
+    for (let i = 0; i < options.numberOfStars; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         stars.push(new Star(x, y));
