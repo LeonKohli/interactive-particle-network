@@ -1,7 +1,7 @@
 # 🎆 Example Configurations
 
 
-# Starry Night
+## Starry Night
 
 ```javascript
 const userOptions = {
@@ -26,7 +26,7 @@ const userOptions = {
 };
 ```
 
-# Nebula Burst
+## Nebula Burst
 
 ```javascript
 const userOptions = {
@@ -51,7 +51,7 @@ const userOptions = {
 };
 ```
 
-# Cosmic Web
+## Cosmic Web
 
 ```javascript
 const userOptions = {
@@ -77,7 +77,7 @@ const userOptions = {
 };
 ```
 
-4. **Galactic Symphony**
+## Galactic Symphony
 
 ```javascript
 const userOptions = {
@@ -103,7 +103,7 @@ const userOptions = {
 };
 ```
 
-5. **Celestial Dream**
+## Celestial Dream
 
 ```javascript
 const userOptions = {
@@ -128,7 +128,7 @@ const userOptions = {
 };
 ```
 
-6. **Quantum Realm**
+## Quantum Realm
 
 ```javascript
 const userOptions = {
@@ -154,7 +154,7 @@ const userOptions = {
 };
 ```
 
-7. **Eternal Twilight**
+## Eternal Twilight
 
 ```javascript
 const userOptions = {
@@ -179,7 +179,7 @@ const userOptions = {
 };
 ```
 
-8. **Alien Encounter**
+## Alien Encounter
 
 ```javascript
 const userOptions = {
@@ -207,7 +207,7 @@ const userOptions = {
 };
 ```
 
-9. **Cybernetic Circuit**
+## Cybernetic Circuit
 
 ```javascript
 const userOptions = {
@@ -233,7 +233,7 @@ const userOptions = {
 };
 ```
 
-10. **Astral Serenity**
+## Astral Serenity
 
 ```javascript
 const userOptions = {
