@@ -75,16 +75,17 @@ By customizing these options, you can create an interactive starry sky that perf
 
 Can't decide on a configuration? Try one of these predefined configurations to see how different options can change your experience:
 
-1. **[Starry Night](examples.md)**
-2. **[Nebula Burst](#nebula-burst)**
-3. **[Cosmic Web](#cosmic-web)**
-4. **[Galactic Symphony](#galactic-symphony)**
-5. **[Celestial Dream](#celestial-dream)**
-6. **[Quantum Realm](#quantum-realm)**
-7. **[Eternal Twilight](#eternal-twilight)**
-8. **[Alien Encounter](#alien-encounter)**
-9. **[Cybernetic Circuit](#cybernetic-circuit)**
-10. **[Astral Serenity](#astral-serenity)**
+1. **[Starry Night](./examples.md#starry-night)**
+2. **[Nebula Burst](./examples.md#nebula-burst)**
+3. **[Cosmic Web](./examples.md#cosmic-web)**
+4. **[Galactic Symphony](./examples.md#galactic-symphony)**
+5. **[Celestial Dream](./examples.md#celestial-dream)**
+6. **[Quantum Realm](./examples.md#quantum-realm)**
+7. **[Eternal Twilight](./examples.md#eternal-twilight)**
+8. **[Alien Encounter](./examples.md#alien-encounter)**
+9. **[Cybernetic Circuit](./examples.md#cybernetic-circuit)**
+10. **[Astral Serenity](./examples.md#astral-serenity)**
+
 
 Click on the configuration names to see them in action!
 
