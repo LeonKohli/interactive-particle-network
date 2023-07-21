@@ -1,7 +1,7 @@
 # 🎆 Example Configurations
 
 
-#Starry Night
+# Starry Night
 
 ```javascript
 const userOptions = {
@@ -26,7 +26,7 @@ const userOptions = {
 };
 ```
 
-2. **Nebula Burst**
+# Nebula Burst
 
 ```javascript
 const userOptions = {
@@ -51,7 +51,7 @@ const userOptions = {
 };
 ```
 
-3. **Cosmic Web**
+# Cosmic Web
 
 ```javascript
 const userOptions = {
