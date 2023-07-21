@@ -1,93 +1,94 @@
 # ✨ Interactive Particle Network 🚀🌌
 
-![GitHub last commit](https://img.shields.io/github/last-commit/LeonKohli/interactive-particle-network)
-![GitHub stars](https://img.shields.io/github/stars/LeonKohli/interactive-particle-network)
-![GitHub issues](https://img.shields.io/github/issues/LeonKohli/interactive-particle-network)
-![License](https://img.shields.io/github/license/LeonKohli/interactive-particle-network)
+<p align="center">
+  <a href="https://github.com/LeonKohli/interactive-particle-network">
+    <img src="https://img.shields.io/github/last-commit/LeonKohli/interactive-particle-network" alt="GitHub last commit">
+  </a>
+  <a href="https://github.com/LeonKohli/interactive-particle-network/stargazers">
+    <img src="https://img.shields.io/github/stars/LeonKohli/interactive-particle-network" alt="GitHub stars">
+  </a>
+  <a href="https://github.com/LeonKohli/interactive-particle-network/issues">
+    <img src="https://img.shields.io/github/issues/LeonKohli/interactive-particle-network" alt="GitHub issues">
+  </a>
+  <a href="https://github.com/LeonKohli/interactive-particle-network/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/LeonKohli/interactive-particle-network" alt="License">
+  </a>
+</p>
 
-Welcome to the **Interactive Starry Background**! This project lets you dive into a universe in your browser. We've created a mesmerizing, ever-changing star field, dynamically moving and interconnecting right on your screen! 🌠
+🌌 **Welcome to the Interactive Starry Background**! This project transforms your browser into a universe, complete with a dynamically evolving star field. Explore constellations that shift and interconnect as your cursor moves - an interactive, ever-changing celestial spectacle. 🌠
 
-## ⚡ Demo
+## ⚡ Live Demo
 
-[Codepen](https://codepen.io/LeonKohli/pen/poQKLOL)
+Experience the interactive starry background [here](https://codepen.io/LeonKohli/pen/poQKLOL).
 
-![demo](https://github.com/LeonKohli/interactive-particle-network/assets/98176333/ac7b59d7-8dfb-4290-88ec-632fd9348170)
+<p align="center">
+  <img src="https://github.com/LeonKohli/interactive-particle-network/assets/98176333/ac7b59d7-8dfb-4290-88ec-632fd9348170" alt="demo">
+</p>
 
 ## 🌟 Features
 
-- **👐 Interactive**: Move your cursor and watch the stars react! Constellations form and follow your command.
-- **🎲 Dynamically Generated**: Experience a unique constellation pattern every time you refresh the page.
-- **📐 Responsive**: Perfectly fits any window size for a seamless experience.
-- **🔨 Pure JavaScript**: Absolutely no additional libraries or frameworks required.
+- **👐 Interactive**: The stars are at your command. Move your cursor and witness constellations form and follow!
+- **🎲 Dynamically Generated**: Every refresh greets you with a unique constellation pattern.
+- **📐 Responsive**: Perfectly adapts to any window size for a seamless visual experience.
+- **🔨 Pure JavaScript**: No dependencies. Just plain JavaScript.
 
 ## 🚀 Getting Started
 
 1. Clone the repository:
-2. git clone https://github.com/LeonKohli/interactive-particle-network.git
-3. Open the `index.html` file in your web browser
+   ```sh
+   git clone https://github.com/LeonKohli/interactive-particle-network.git
+   ```
+2. Open the `index.html` file in your web browser.
 
 ## 🛠️ Usage
 
-Feel free to incorporate this interactive background into your own projects. It would be a great addition to a personal portfolio, an online store, a blog, and more. Please give credit if you do use it!
+Feel free to incorporate this interactive background into your own projects. Whether it's a personal portfolio, an online store, or a blog, our starry sky will fit right in. Don't forget to give credit where it's due!
 
-## ⚙️ Customization Options
+## ⚙️ Customize Your Universe
 
-This interactive starry sky offers a variety of options for customization to suit your preferences or project's theme. You can tweak these parameters to change the look and feel of the starry background:
+**Interactive Particle Network** is not just a starry background, it's _your_ starry background. With numerous customization options, you can tweak the universe to match your mood or project's theme:
 
-- **`numberOfStars`**: Set the number of stars in your sky. Larger numbers create denser, busier skies.
+<details>
+  <summary><strong>🌟 Configuration Options</strong></summary>
 
-- **`maxDistance`**: Controls the maximum distance for a star connection to be formed. Larger values result in more star connections.
+  - `numberOfStars`: Set the number of stars in your sky.
+  - `maxDistance`: Maximum distance for a star connection.
+  - `starSize`: Range of possible star sizes.
+  - `speedFactor`: Speed at which stars move around the canvas.
+  - `mouseRadius`: Area around the mouse where stars will attempt to form connections.
+  - `starColor`: Color of the stars.
+  - `connectionColor`: Color of the lines that connect stars.
+  - `canvasBackgroundColor`: Background color of your canvas.
+  - `lineThickness`: Thickness of the connection lines.
+  - `starShapes`: Shapes of the stars - 'circle' or 'star'.
+  - `randomStarSpeeds`: Set this to true for stars moving at random speeds.
+  - `rotationSpeed`: Range of possible rotation speeds for star-shaped stars.
+  - `connectionsWhenNoMouse`: Set this to true to form star connections without mouse interference.
+  - `percentStarsConnecting`: Percentage of stars that can connect when the mouse is not on the canvas.
+  - `connectionLinesDashed`: Set this to true for dashed connection lines.
+  - `dashedLinesConfig`: Configuration for the dashed lines.
+  - `canvasGradient`: Add a gradient for the canvas background.
+  - `starDensity`: Density of the stars - 'low', 'medium', 'high', or 'ultra'.
+</details>
 
-- **`starSize`**: Define the range of possible star sizes. It takes a minimum and maximum value to provide a variety of star sizes.
+By customizing these options, you can create a truly unique and stunning celestial spectacle! 💫
 
-- **`speedFactor`**: Control the speed at which stars move around the canvas. Higher values result in faster moving stars.
-
-- **`mouseRadius`**: Determines the area around the mouse where stars will attempt to form connections. A larger radius means more stars will react to your mouse movements.
-
-- **`starColor`**: Set the color of the stars.
-
-- **`connectionColor`**: Change the color of the lines that connect stars.
-
-- **`canvasBackgroundColor`**: Alter the background color of your canvas.
-
-- **`lineThickness`**: Adjust the thickness of the connection lines.
-
-- **`starShapes`**: Choose between 'circle' or 'star' shapes for the stars.
-
-- **`randomStarSpeeds`**: By setting this option to true, stars will move at random speeds. 
-
-- **`rotationSpeed`**: Define the range of possible rotation speeds for star-shaped stars.
-
-- **`connectionsWhenNoMouse`**: If this is set to true, some stars will form connections even when the mouse is not on the canvas.
-
-- **`percentStarsConnecting`**: Set the percentage of stars that can connect when the mouse is not on the canvas.
-
-- **`connectionLinesDashed`**: This option allows the connection lines to be dashed.
-
-- **`dashedLinesConfig`**: This sets the configuration for the dashed lines.
-
-- **`canvasGradient`**: Add a gradient for the canvas background. This takes an array of colors to create the gradient.
-
-- **`starDensity`**: Control the density of the stars in your sky. This can be set to 'low', 'medium', 'high', or 'ultra'.
-
-By customizing these options, you can create an interactive starry sky that perfectly matches your aesthetic or the mood you want to set for your users! 💫
 ## 🎨 Predefined Configurations
 
-Can't decide on a configuration? Try one of these predefined configurations to see how different options can change your experience:
+<p align="center">
+  <a href="./examples.md#starry-night">Starry Night</a> •
+  <a href="./examples.md#astral-serenity">Astral Serenity</a> •
+  <a href="./examples.md#nebula-burst">Nebula Burst</a> •
+  <a href="./examples.md#cosmic-web">Cosmic Web</a> •
+  <a href="./examples.md#galactic-symphony">Galactic Symphony</a> •
+  <a href="./examples.md#celestial-dream">Celestial Dream</a> •
+  <a href="./examples.md#quantum-realm">Quantum Realm</a> •
+  <a href="./examples.md#eternal-twilight">Eternal Twilight</a> •
+  <a href="./examples.md#alien-encounter">Alien Encounter</a> •
+  <a href="./examples.md#cybernetic-circuit">Cybernetic Circuit</a>
+</p>
 
-1. **[Starry Night](./examples.md#starry-night)**
-2. **[Nebula Burst](./examples.md#nebula-burst)**
-3. **[Cosmic Web](./examples.md#cosmic-web)**
-4. **[Galactic Symphony](./examples.md#galactic-symphony)**
-5. **[Celestial Dream](./examples.md#celestial-dream)**
-6. **[Quantum Realm](./examples.md#quantum-realm)**
-7. **[Eternal Twilight](./examples.md#eternal-twilight)**
-8. **[Alien Encounter](./examples.md#alien-encounter)**
-9. **[Cybernetic Circuit](./examples.md#cybernetic-circuit)**
-10. **[Astral Serenity](./examples.md#astral-serenity)**
-
-
-Click on the configuration names to see them in action!
+Too many options? Jumpstart your journey with our predefined configurations. Click on the names to see them in action!
 
 ## 📄 License
 
@@ -95,8 +96,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Contributing
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to submit pull requests to us.
-
-## 🙏 Acknowledgements
-
-Thanks to all the developers and creative minds out there for the inspiration!
+We welcome all contributions! If you're interested in enhancing our universe, please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to submit pull requests.
