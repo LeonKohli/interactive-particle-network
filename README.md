@@ -22,6 +22,52 @@ Welcome to the **Interactive Starry Background**! This project lets you dive int
 - **📐 Responsive**: Perfectly fits any window size for a seamless experience.
 - **🔨 Pure JavaScript**: Absolutely no additional libraries or frameworks required.
 
+---
+
+## ⚙️ Customization Options
+
+This interactive starry sky offers a variety of options for customization to suit your preferences or project's theme. You can tweak these parameters to change the look and feel of the starry background:
+
+- **`numberOfStars`**: Set the number of stars in your sky. Larger numbers create denser, busier skies.
+  
+- **`maxDistance`**: Controls the maximum distance for a star connection to be formed. Larger values result in more star connections.
+
+- **`starSize`**: Define the range of possible star sizes. It takes a minimum and maximum value to provide a variety of star sizes.
+
+- **`speedFactor`**: Control the speed at which stars move around the canvas. Higher values result in faster moving stars.
+
+- **`mouseRadius`**: Determines the area around the mouse where stars will attempt to form connections. A larger radius means more stars will react to your mouse movements.
+
+- **`starColor`**: Set the color of the stars.
+
+- **`connectionColor`**: Change the color of the lines that connect stars.
+
+- **`canvasBackgroundColor`**: Alter the background color of your canvas.
+
+- **`lineThickness`**: Adjust the thickness of the connection lines.
+
+- **`starShapes`**: Choose between 'circle' or 'star' shapes for the stars.
+
+- **`randomStarSpeeds`**: By setting this option to true, stars will move at random speeds. 
+
+- **`rotationSpeed`**: Define the range of possible rotation speeds for star-shaped stars.
+
+- **`connectionsWhenNoMouse`**: If this is set to true, some stars will form connections even when the mouse is not on the canvas.
+
+- **`percentStarsConnecting`**: Set the percentage of stars that can connect when the mouse is not on the canvas.
+
+- **`connectionLinesDashed`**: This option allows the connection lines to be dashed.
+
+- **`dashedLinesConfig`**: This sets the configuration for the dashed lines.
+
+- **`canvasGradient`**: Add a gradient for the canvas background. This takes an array of colors to create the gradient.
+
+- **`starDensity`**: Control the density of the stars in your sky. This can be set to 'low', 'medium', 'high', or 'ultra'.
+
+By customizing these options, you can create an interactive starry sky that perfectly matches your aesthetic or the mood you want to set for your users! 💫
+
+---
+
 
 ## 🚀 Getting Started
 
