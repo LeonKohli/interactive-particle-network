@@ -1,6 +1,7 @@
 # 🎆 Example Configurations
 
-1. #Starry Night
+
+#Starry Night
 
 ```javascript
 const userOptions = {
