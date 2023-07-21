@@ -21,16 +21,31 @@ const defaultOptions = {
     connectionLinesDashed: false, // option to make connection lines dashed
     dashedLinesConfig: [5, 15], // configuration for dashed lines
     canvasGradient: null, // gradient for canvas background
+    starDensity: 'medium', // Options: 'low', 'medium', 'high', 'ultra'
+    interactive: false, // If true the user can add stars by clicking on the canvas
 };
 
 const userOptions = {
 }
 
+// Star densities corresponding to 'low', 'medium', 'high', and 'ultra'
+const starDensities = {
+    'low': 0.00005,
+    'medium': 0.0001,
+    'high': 0.0002,
+    'ultra': 0.0004,
+};
 
 
 
 // Merge user options with default options
 const options = { ...defaultOptions, ...userOptions };
+
+window.addEventListener('resize', function() {
+    stars.length = 0; // Clear the existing stars
+    resizeCanvas();
+    createStars(); // Create new stars according to the new screen size
+});
 
 const stars = [];
 const mouse = { x: null, y: null };
@@ -151,12 +166,22 @@ function animateStars() {
 
 function createStars() {
     resizeCanvas();
-    for (let i = 0; i < options.numberOfStars; i++) {
+    // Use the star density corresponding to the user's option
+    const numberOfStars = starDensities[options.starDensity] * canvas.width * canvas.height;
+    for (let i = 0; i < numberOfStars; i++) {
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         stars.push(new Star(x, y));
     }
 }
+
+window.addEventListener('click', function(event) {
+    if (!options.interactive) return;
+    const x = event.x;
+    const y = event.y;
+    const star = new Star(x, y);
+    stars.push(star);
+});
 
 createStars();
 animateStars();
