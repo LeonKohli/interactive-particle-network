@@ -26,6 +26,7 @@ const defaultOptions = {
 };
 
 const userOptions = {};
+
 // Star densities corresponding to 'low', 'medium', 'high', and 'ultra'
 const starDensities = {
   low: 0.00005,
@@ -36,6 +37,11 @@ const starDensities = {
 
 // Merge user options with default options
 const options = { ...defaultOptions, ...userOptions };
+
+// Size of a cell in the hashmap
+const CELL_SIZE = options.maxDistance;
+// The hashmap
+let cells = {};
 
 window.addEventListener("resize", function () {
   stars.length = 0; // Clear the existing stars
@@ -126,7 +132,6 @@ Star.prototype.draw = function () {
 };
 
 function animateStars() {
-  // Fill the entire canvas with the gradient
   if (options.canvasGradient) {
     const gradient = ctx.createLinearGradient(
       0,
@@ -142,6 +147,7 @@ function animateStars() {
   } else {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
+
   stars.forEach((star) => {
     star.x += star.speedX;
     star.y += star.speedY;
@@ -153,49 +159,77 @@ function animateStars() {
       star.speedY = -star.speedY;
     }
     star.draw();
-    // draw lines between nearby stars
-    stars.forEach((otherStar) => {
-      let dx = star.x - otherStar.x;
-      let dy = star.y - otherStar.y;
-      let distance = Math.sqrt(dx * dx + dy * dy);
-      let mouseDx = star.x - mouse.x;
-      let mouseDy = star.y - mouse.y;
-      let mouseDistance = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy);
-      if (
-        distance < options.maxDistance &&
-        (mouseDistance < options.mouseRadius ||
-          (star.connects && otherStar.connects))
-      ) {
-        ctx.beginPath();
-        ctx.moveTo(star.x, star.y);
-        ctx.lineTo(otherStar.x, otherStar.y);
-        const opacity = (options.maxDistance - distance) / options.maxDistance;
-        ctx.lineWidth = options.lineThickness;
-        ctx.strokeStyle = options.connectionColor.replace(
-          "${opacity}",
-          opacity
-        );
-        if (options.connectionLinesDashed) {
-          ctx.setLineDash(options.dashedLinesConfig);
-        } else {
-          ctx.setLineDash([]);
+
+    let cellX = Math.floor(star.x / CELL_SIZE);
+    let cellY = Math.floor(star.y / CELL_SIZE);
+    // Check distances with stars in the same cell and neighboring cells
+    for (let i = -1; i <= 1; i++) {
+      for (let j = -1; j <= 1; j++) {
+        let neighbourCellX = cellX + i;
+        let neighbourCellY = cellY + j;
+        // If this cell exists...
+        if (cells[neighbourCellX] && cells[neighbourCellX][neighbourCellY]) {
+          // ...check distances with its stars
+          cells[neighbourCellX][neighbourCellY].forEach((otherStar) => {
+            let dx = star.x - otherStar.x;
+            let dy = star.y - otherStar.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            let mouseDx = star.x - mouse.x;
+            let mouseDy = star.y - mouse.y;
+            let mouseDistance = Math.sqrt(
+              mouseDx * mouseDx + mouseDy * mouseDy
+            );
+            if (
+              distance < options.maxDistance &&
+              (mouseDistance < options.mouseRadius ||
+                (star.connects && otherStar.connects))
+            ) {
+              ctx.beginPath();
+              ctx.moveTo(star.x, star.y);
+              ctx.lineTo(otherStar.x, otherStar.y);
+              const opacity =
+                (options.maxDistance - distance) / options.maxDistance;
+              ctx.lineWidth = options.lineThickness;
+              ctx.strokeStyle = options.connectionColor.replace(
+                "${opacity}",
+                opacity
+              );
+              if (options.connectionLinesDashed) {
+                ctx.setLineDash(options.dashedLinesConfig);
+              } else {
+                ctx.setLineDash([]);
+              }
+              ctx.stroke();
+            }
+          });
         }
-        ctx.stroke();
       }
-    });
+    }
   });
   requestAnimationFrame(animateStars);
 }
 
 function createStars() {
   resizeCanvas();
-  // Use the star density corresponding to the user's option
   const numberOfStars =
     starDensities[options.starDensity] * canvas.width * canvas.height;
   for (let i = 0; i < numberOfStars; i++) {
     let x = Math.random() * canvas.width;
     let y = Math.random() * canvas.height;
-    stars.push(new Star(x, y));
+    let star = new Star(x, y);
+    stars.push(star);
+    // Determine which cell this star belongs to
+    let cellX = Math.floor(x / CELL_SIZE);
+    let cellY = Math.floor(y / CELL_SIZE);
+    // If the cell doesn't exist yet, create it
+    if (!cells[cellX]) {
+      cells[cellX] = {};
+    }
+    if (!cells[cellX][cellY]) {
+      cells[cellX][cellY] = [];
+    }
+    // Add the star to the cell
+    cells[cellX][cellY].push(star);
   }
 }
 
