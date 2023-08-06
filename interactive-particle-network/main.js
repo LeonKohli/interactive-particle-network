@@ -1,6 +1,8 @@
-// Starry background with connecting constellations
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const canvasBackground = document.getElementById("backgroundCanvas");
+const ctxBackground = canvasBackground.getContext("2d");
+
+const canvasStars = document.getElementById("starsCanvas");
+const ctxStars = canvasStars.getContext("2d");
 
 // Default options
 const defaultOptions = {
@@ -13,17 +15,18 @@ const defaultOptions = {
   connectionColor: "rgba(255, 255, 255, ${opacity})",
   canvasBackgroundColor: "#000",
   backgroundImageURL: null, // Option to set a background image
+  overlayColor: "rgba(0, 0, 0, 0.5)", // Color to overlay on top of the background image
   lineThickness: 1,
   starShapes: ["circle", "star"],
   randomStarSpeeds: true,
   rotationSpeed: { min: 0.001, max: 0.003 },
   connectionsWhenNoMouse: false,
-  percentStarsConnecting: 10, // percentage of stars that can connect when mouse is not on canvas
+  percentStarsConnecting: 10, // percentage of stars that can connect when mouse is not on canvasStars
   connectionLinesDashed: false, // option to make connection lines dashed
   dashedLinesConfig: [5, 15], // configuration for dashed lines
-  canvasGradient: null, // gradient for canvas background
+  canvasGradient: null, // gradient for canvasStars background
   starDensity: "medium", // Options: 'low', 'medium', 'high', 'ultra'
-  interactive: false, // If true the user can add stars by clicking on the canvas
+  interactive: false, // If true the user can add stars by clicking on the canvasStars
 };
 
 const userOptions = {};
@@ -61,30 +64,51 @@ window.addEventListener("mousemove", function (event) {
 });
 
 function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  // setup gradient if defined
+  canvasBackground.width = window.innerWidth;
+  canvasBackground.height = window.innerHeight;
+  canvasStars.width = window.innerWidth;
+  canvasStars.height = window.innerHeight;
+
+  // Drawing the background
   if (options.canvasGradient) {
-    const gradient = ctx.createLinearGradient(
+    const gradient = ctxBackground.createLinearGradient(
       0,
       0,
-      canvas.width,
-      canvas.height
+      canvasBackground.width,
+      canvasBackground.height
     );
     options.canvasGradient.forEach((color, index) => {
       gradient.addColorStop(index / (options.canvasGradient.length - 1), color);
     });
-    canvas.style.background = gradient;
+    ctxBackground.fillStyle = gradient;
+    ctxBackground.fillRect(
+      0,
+      0,
+      canvasBackground.width,
+      canvasBackground.height
+    );
   } else if (options.backgroundImageURL) {
     const img = new Image();
     img.onload = function () {
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = options.overlayColor; // Add the overlay color
-      ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill the entire canvas with the overlay color
+      ctxBackground.drawImage(
+        img,
+        0,
+        0,
+        canvasBackground.width,
+        canvasBackground.height
+      );
+      ctxBackground.fillStyle = options.overlayColor;
+      ctxBackground.fillRect(
+        0,
+        0,
+        canvasBackground.width,
+        canvasBackground.height
+      );
     };
     img.src = options.backgroundImageURL;
   } else {
-    canvas.style.background = options.canvasBackgroundColor;
+    ctxBackground.fillStyle = options.canvasBackgroundColor;
+    ctxStars.fillRect(0, 0, canvasBackground.width, canvasBackground.height);
   }
 }
 
@@ -112,33 +136,33 @@ function Star(x, y) {
 }
 
 Star.prototype.draw = function () {
-  ctx.beginPath();
-  ctx.fillStyle = options.starColor;
+  ctxStars.beginPath();
+  ctxStars.fillStyle = options.starColor;
   switch (this.shape) {
     case "circle":
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctxStars.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       break;
     case "star":
-      ctx.save();
-      ctx.translate(this.x, this.y);
-      ctx.rotate(this.rotation);
-      ctx.beginPath();
+      ctxStars.save();
+      ctxStars.translate(this.x, this.y);
+      ctxStars.rotate(this.rotation);
+      ctxStars.beginPath();
       // Five-point star shape
       for (let i = 0; i < 5; i++) {
-        ctx.lineTo(0, -this.size / 2);
-        ctx.translate(0, -this.size / 2);
-        ctx.rotate((Math.PI * 2) / 10);
-        ctx.lineTo(0, -this.size / 2);
-        ctx.translate(0, -this.size / 2);
-        ctx.rotate(-((Math.PI * 6) / 10));
+        ctxStars.lineTo(0, -this.size / 2);
+        ctxStars.translate(0, -this.size / 2);
+        ctxStars.rotate((Math.PI * 2) / 10);
+        ctxStars.lineTo(0, -this.size / 2);
+        ctxStars.translate(0, -this.size / 2);
+        ctxStars.rotate(-((Math.PI * 6) / 10));
       }
-      ctx.lineTo(0, -this.size / 2);
-      ctx.restore();
+      ctxStars.lineTo(0, -this.size / 2);
+      ctxStars.restore();
       break;
     // More shapes can be added here
   }
-  ctx.closePath();
-  ctx.fill();
+  ctxStars.closePath();
+  ctxStars.fill();
 };
 
 let backgroundImage = null;
@@ -148,34 +172,16 @@ if (options.backgroundImageURL) {
 }
 
 function animateStars() {
-  if (options.canvasGradient) {
-    const gradient = ctx.createLinearGradient(
-      0,
-      0,
-      canvas.width,
-      canvas.height
-    );
-    options.canvasGradient.forEach((color, index) => {
-      gradient.addColorStop(index / (options.canvasGradient.length - 1), color);
-    });
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  } else if (backgroundImage) {
-    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = options.overlayColor; // Add the overlay color
-    ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill the entire canvas with the overlay color
-  } else {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
+  ctxStars.clearRect(0, 0, canvasStars.width, canvasStars.height);
 
   stars.forEach((star) => {
     star.x += star.speedX;
     star.y += star.speedY;
     if (star.shape === "star") star.rotation += star.rotationSpeed;
-    if (star.x > canvas.width || star.x < 0) {
+    if (star.x > canvasStars.width || star.x < 0) {
       star.speedX = -star.speedX;
     }
-    if (star.y > canvas.height || star.y < 0) {
+    if (star.y > canvasStars.height || star.y < 0) {
       star.speedY = -star.speedY;
     }
     star.draw();
@@ -204,22 +210,22 @@ function animateStars() {
               (mouseDistance < options.mouseRadius ||
                 (star.connects && otherStar.connects))
             ) {
-              ctx.beginPath();
-              ctx.moveTo(star.x, star.y);
-              ctx.lineTo(otherStar.x, otherStar.y);
+              ctxStars.beginPath();
+              ctxStars.moveTo(star.x, star.y);
+              ctxStars.lineTo(otherStar.x, otherStar.y);
               const opacity =
                 (options.maxDistance - distance) / options.maxDistance;
-              ctx.lineWidth = options.lineThickness;
-              ctx.strokeStyle = options.connectionColor.replace(
+              ctxStars.lineWidth = options.lineThickness;
+              ctxStars.strokeStyle = options.connectionColor.replace(
                 "${opacity}",
                 opacity
               );
               if (options.connectionLinesDashed) {
-                ctx.setLineDash(options.dashedLinesConfig);
+                ctxStars.setLineDash(options.dashedLinesConfig);
               } else {
-                ctx.setLineDash([]);
+                ctxStars.setLineDash([]);
               }
-              ctx.stroke();
+              ctxStars.stroke();
             }
           });
         }
@@ -232,10 +238,10 @@ function animateStars() {
 function createStars() {
   resizeCanvas();
   const numberOfStars =
-    starDensities[options.starDensity] * canvas.width * canvas.height;
+    starDensities[options.starDensity] * canvasStars.width * canvasStars.height;
   for (let i = 0; i < numberOfStars; i++) {
-    let x = Math.random() * canvas.width;
-    let y = Math.random() * canvas.height;
+    let x = Math.random() * canvasStars.width;
+    let y = Math.random() * canvasStars.height;
     let star = new Star(x, y);
     stars.push(star);
     // Determine which cell this star belongs to
@@ -261,5 +267,6 @@ window.addEventListener("click", function (event) {
   stars.push(star);
 });
 
+resizeCanvas(); // This will draw the background.
 createStars();
 animateStars();
