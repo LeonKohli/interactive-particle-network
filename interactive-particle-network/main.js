@@ -26,7 +26,6 @@ const defaultOptions = {
 };
 
 const userOptions = {};
-
 // Star densities corresponding to 'low', 'medium', 'high', and 'ultra'
 const starDensities = {
   low: 0.00005,
@@ -45,6 +44,7 @@ let cells = {};
 
 window.addEventListener("resize", function () {
   stars.length = 0; // Clear the existing stars
+  cells = {}; // Clear the existing cells
   resizeCanvas();
   createStars(); // Create new stars according to the new screen size
 });
