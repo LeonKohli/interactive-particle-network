@@ -12,6 +12,7 @@ const defaultOptions = {
   starColor: "#fff",
   connectionColor: "rgba(255, 255, 255, ${opacity})",
   canvasBackgroundColor: "#000",
+  backgroundImageURL: null, // Option to set a background image
   lineThickness: 1,
   starShapes: ["circle", "star"],
   randomStarSpeeds: true,
@@ -26,6 +27,7 @@ const defaultOptions = {
 };
 
 const userOptions = {};
+
 // Star densities corresponding to 'low', 'medium', 'high', and 'ultra'
 const starDensities = {
   low: 0.00005,
@@ -73,6 +75,14 @@ function resizeCanvas() {
       gradient.addColorStop(index / (options.canvasGradient.length - 1), color);
     });
     canvas.style.background = gradient;
+  } else if (options.backgroundImageURL) {
+    const img = new Image();
+    img.onload = function () {
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = options.overlayColor; // Add the overlay color
+      ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill the entire canvas with the overlay color
+    };
+    img.src = options.backgroundImageURL;
   } else {
     canvas.style.background = options.canvasBackgroundColor;
   }
@@ -131,6 +141,12 @@ Star.prototype.draw = function () {
   ctx.fill();
 };
 
+let backgroundImage = null;
+if (options.backgroundImageURL) {
+  backgroundImage = new Image();
+  backgroundImage.src = options.backgroundImageURL;
+}
+
 function animateStars() {
   if (options.canvasGradient) {
     const gradient = ctx.createLinearGradient(
@@ -144,6 +160,10 @@ function animateStars() {
     });
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+  } else if (backgroundImage) {
+    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = options.overlayColor; // Add the overlay color
+    ctx.fillRect(0, 0, canvas.width, canvas.height); // Fill the entire canvas with the overlay color
   } else {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
