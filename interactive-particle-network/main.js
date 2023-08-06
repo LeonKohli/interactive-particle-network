@@ -21,7 +21,7 @@ const defaultOptions = {
   randomStarSpeeds: true,
   rotationSpeed: { min: 0.001, max: 0.003 },
   connectionsWhenNoMouse: false,
-  percentStarsConnecting: 100, // percentage of stars that can connect when mouse is not on canvasStars
+  percentStarsConnecting: 30, // percentage of stars that can connect when mouse is not on canvasStars
   connectionLinesDashed: false, // option to make connection lines dashed
   dashedLinesConfig: [5, 15], // configuration for dashed lines
   canvasGradient: null, // gradient for canvasStars background
@@ -60,7 +60,6 @@ window.addEventListener("resize", function () {
 const stars = [];
 const mouse = { x: null, y: null };
 
-window.addEventListener("resize", resizeCanvas);
 // Change in the mousemove event listener
 let animationIdleTimeout = null;
 
@@ -145,9 +144,13 @@ function Star(x, y) {
   this.rotationSpeed =
     Math.random() * (options.rotationSpeed.max - options.rotationSpeed.min) +
     options.rotationSpeed.min;
-  this.connects =
-    options.connectionsWhenNoMouse &&
-    Math.random() < options.percentStarsConnecting / 100;
+  if (options.percentStarsConnecting === 100) {
+    this.connects = true;
+  } else {
+    this.connects =
+      options.connectionsWhenNoMouse &&
+      Math.random() < options.percentStarsConnecting / 100;
+  }
   this.depth = Math.random();
   this.originalX = x;
   this.originalY = y;
@@ -206,6 +209,9 @@ function animateStars() {
   updateStarPositionForParallax();
   ctxStars.clearRect(0, 0, canvasStars.width, canvasStars.height);
 
+  // Clear the cell hash at the start of each animation frame
+  cells = {};
+
   stars.forEach((star) => {
     star.x += star.speedX;
     star.y += star.speedY;
@@ -219,8 +225,17 @@ function animateStars() {
     }
     star.draw();
 
+    // Recalculate cell position after star movement
     let cellX = Math.floor(star.x / CELL_SIZE);
     let cellY = Math.floor(star.y / CELL_SIZE);
+    if (!cells[cellX]) {
+      cells[cellX] = {};
+    }
+    if (!cells[cellX][cellY]) {
+      cells[cellX][cellY] = [];
+    }
+    cells[cellX][cellY].push(star);
+
     for (let i = -1; i <= 1; i++) {
       for (let j = -1; j <= 1; j++) {
         let neighbourCellX = cellX + i;
