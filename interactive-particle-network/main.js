@@ -21,12 +21,15 @@ const defaultOptions = {
   randomStarSpeeds: true,
   rotationSpeed: { min: 0.001, max: 0.003 },
   connectionsWhenNoMouse: false,
-  percentStarsConnecting: 10, // percentage of stars that can connect when mouse is not on canvasStars
+  percentStarsConnecting: 100, // percentage of stars that can connect when mouse is not on canvasStars
   connectionLinesDashed: false, // option to make connection lines dashed
   dashedLinesConfig: [5, 15], // configuration for dashed lines
   canvasGradient: null, // gradient for canvasStars background
   starDensity: "medium", // Options: 'low', 'medium', 'high', 'ultra'
   interactive: false, // If true the user can add stars by clicking on the canvasStars
+  parallaxEffect: false,
+  parallaxStrength: 1, // the higher, the slower the motion
+  idleRestartTime: 3000,
 };
 
 const userOptions = {};
@@ -58,9 +61,21 @@ const stars = [];
 const mouse = { x: null, y: null };
 
 window.addEventListener("resize", resizeCanvas);
+// Change in the mousemove event listener
+let animationIdleTimeout = null;
+
 window.addEventListener("mousemove", function (event) {
   mouse.x = event.x;
   mouse.y = event.y;
+
+  // Clear any previous timeout
+  clearTimeout(animationIdleTimeout);
+
+  // Set a new timeout
+  animationIdleTimeout = setTimeout(() => {
+    mouse.x = null;
+    mouse.y = null;
+  }, options.idleRestartTime);
 });
 
 function resizeCanvas() {
@@ -133,6 +148,21 @@ function Star(x, y) {
   this.connects =
     options.connectionsWhenNoMouse &&
     Math.random() < options.percentStarsConnecting / 100;
+  this.depth = Math.random();
+  this.originalX = x;
+  this.originalY = y;
+  this.size *= this.depth; // Size varies based on depth
+}
+
+function updateStarPositionForParallax() {
+  if (!options.parallaxEffect || !mouse.x || !mouse.y) return;
+
+  stars.forEach((star) => {
+    const dx = (canvasStars.width / 2 - mouse.x) / options.parallaxStrength;
+    const dy = (canvasStars.height / 2 - mouse.y) / options.parallaxStrength;
+    star.x = star.originalX + dx * (1 - star.depth);
+    star.y = star.originalY + dy * (1 - star.depth);
+  });
 }
 
 Star.prototype.draw = function () {
@@ -171,12 +201,15 @@ if (options.backgroundImageURL) {
   backgroundImage.src = options.backgroundImageURL;
 }
 
+// Modified animateStars function
 function animateStars() {
+  updateStarPositionForParallax();
   ctxStars.clearRect(0, 0, canvasStars.width, canvasStars.height);
 
   stars.forEach((star) => {
     star.x += star.speedX;
     star.y += star.speedY;
+
     if (star.shape === "star") star.rotation += star.rotationSpeed;
     if (star.x > canvasStars.width || star.x < 0) {
       star.speedX = -star.speedX;
@@ -188,14 +221,11 @@ function animateStars() {
 
     let cellX = Math.floor(star.x / CELL_SIZE);
     let cellY = Math.floor(star.y / CELL_SIZE);
-    // Check distances with stars in the same cell and neighboring cells
     for (let i = -1; i <= 1; i++) {
       for (let j = -1; j <= 1; j++) {
         let neighbourCellX = cellX + i;
         let neighbourCellY = cellY + j;
-        // If this cell exists...
         if (cells[neighbourCellX] && cells[neighbourCellX][neighbourCellY]) {
-          // ...check distances with its stars
           cells[neighbourCellX][neighbourCellY].forEach((otherStar) => {
             let dx = star.x - otherStar.x;
             let dy = star.y - otherStar.y;
@@ -215,11 +245,11 @@ function animateStars() {
               ctxStars.lineTo(otherStar.x, otherStar.y);
               const opacity =
                 (options.maxDistance - distance) / options.maxDistance;
-              ctxStars.lineWidth = options.lineThickness;
               ctxStars.strokeStyle = options.connectionColor.replace(
                 "${opacity}",
-                opacity
+                opacity.toString()
               );
+              ctxStars.lineWidth = options.lineThickness;
               if (options.connectionLinesDashed) {
                 ctxStars.setLineDash(options.dashedLinesConfig);
               } else {
