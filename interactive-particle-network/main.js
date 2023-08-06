@@ -30,6 +30,7 @@ const defaultOptions = {
   parallaxEffect: false,
   parallaxStrength: 1, // the higher, the slower the motion
   idleRestartTime: 3000,
+  bounceOnEdges: false, // Set to true if you want the stars to bounce on the edges. Default is true.
 };
 
 const userOptions = {};
@@ -217,11 +218,20 @@ function animateStars() {
     star.y += star.speedY;
 
     if (star.shape === "star") star.rotation += star.rotationSpeed;
-    if (star.x > canvasStars.width || star.x < 0) {
-      star.speedX = -star.speedX;
-    }
-    if (star.y > canvasStars.height || star.y < 0) {
-      star.speedY = -star.speedY;
+
+    // Bounce on edges logic
+    if (options.bounceOnEdges) {
+      if (star.x > canvasStars.width || star.x < 0) {
+        star.speedX = -star.speedX;
+      }
+      if (star.y > canvasStars.height || star.y < 0) {
+        star.speedY = -star.speedY;
+      }
+    } else {
+      if (star.x > canvasStars.width) star.x = 0;
+      if (star.x < 0) star.x = canvasStars.width;
+      if (star.y > canvasStars.height) star.y = 0;
+      if (star.y < 0) star.y = canvasStars.height;
     }
     star.draw();
 
